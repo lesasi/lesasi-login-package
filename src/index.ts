@@ -1,3 +1,2 @@
-export const BackendLoginApp = () => {
-    return 'Hello';
-};
+import { BackendLoginApp } from './BackendLoginApp';
+export default BackendLoginApp;
