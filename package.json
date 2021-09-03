@@ -1,0 +1,36 @@
+{
+  "name": "lesasi-login-package",
+  "version": "1.0.0",
+  "description": "Authentication package for express and mongodb backend with User router, User model and firebase integration",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "format": "prettier --write --no-error-on-unmatched-pattern \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lesasi/lesasi-login-package.git"
+  },
+  "keywords": ["epxress", "mongodb", "authentication"],
+  "author": "lesasi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lesasi/lesasi-login-package/issues"
+  },
+  "homepage": "https://github.com/lesasi/lesasi-login-package#readme",
+  "devDependencies": {
+    "prettier": "^2.3.2",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.4.2"
+  },
+  "files": ["dist/**/*"]
+}
