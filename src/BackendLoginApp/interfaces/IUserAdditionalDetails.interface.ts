@@ -1,4 +1,4 @@
-type IAllowedDetailTypes = String | Number | Boolean;
+export type IAllowedDetailTypes = string | number | boolean;
 
 // the final requirement will be an array of these
 export interface IUserAdditionalDetails {
