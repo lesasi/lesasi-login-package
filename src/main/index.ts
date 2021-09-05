@@ -1,13 +1,13 @@
-import { UserModel } from '../UserModel';
-import { IUserModel } from '../UserModel/interfaces/IUserModel.interface';
-import { IBackendLoginApp, IBackendLoginAppInput } from './interfaces/IBackendLoginApp.interface';
+import { UserModel } from './UserModel';
+import { IBackendLoginApp, IBackendLoginAppInput } from '../interfaces/IBackendLoginApp.interface';
+import { IUserModel } from '../interfaces/IUserModel.interface';
 
 export class BackendLoginApp implements IBackendLoginApp {
     protected userModel: IUserModel;
     protected userRouter;
     protected firebaseObj;
 
-    init(data: IBackendLoginAppInput) {
+    constructor(data: IBackendLoginAppInput) {
         this.userModel = new UserModel(
             data.authString, 
             data.mongooseObj,

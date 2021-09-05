@@ -1,2 +1,2 @@
-import { BackendLoginApp } from './BackendLoginApp';
+import { BackendLoginApp } from './main';
 export default BackendLoginApp;

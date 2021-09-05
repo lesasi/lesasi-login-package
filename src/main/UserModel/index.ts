@@ -2,9 +2,9 @@ import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import _ from 'lodash';
 
-import { IUserAdditionalDetails } from "../BackendLoginApp/interfaces/IUserAdditionalDetails.interface";
-import { IUserDefault } from './interfaces/IUserDefault.interface';
-import { IUserModel } from './interfaces/IUserModel.interface';
+import { IUserDefault } from '../../interfaces/IUserDefault.interface';
+import { IUserModel } from '../../interfaces/IUserModel.interface';
+import { IUserAdditionalDetails } from '../../interfaces/IUserAdditionalDetails.interface';
 
 export class UserModel implements IUserModel{
     protected User: mongoose.Model<IUserDefault>;

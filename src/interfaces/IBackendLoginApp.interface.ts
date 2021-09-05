@@ -1,6 +1,6 @@
-import { IUserModel } from '../../UserModel/interfaces/IUserModel.interface';
 import { IFirebaseArgs } from './IFirebaseArgs.interface';
 import { IUserAdditionalDetails } from './IUserAdditionalDetails.interface';
+import { IUserModel } from './IUserModel.interface';
 
 export interface IBackendLoginAppInput {
     authString: string;
@@ -10,6 +10,5 @@ export interface IBackendLoginAppInput {
 };
 
 export interface IBackendLoginApp {
-    init(data: IBackendLoginAppInput): void;
     getUserModel(): IUserModel;
 }
