@@ -1,14 +1,15 @@
+import mongoose from 'mongoose';
 import { IFirebaseArgs } from './IFirebaseArgs.interface';
 import { IUserAdditionalDetails } from './IUserAdditionalDetails.interface';
-import { IUserModel } from './IUserModel.interface';
+import { IUserDefault } from './IUserDefault.interface';
 
 export interface IBackendLoginAppInput {
     authString: string;
-    mongooseObj: any;
+    mongooseConnection: mongoose.Connection;
     firebaseArgs?: IFirebaseArgs;
     userAdditionalDetails?: IUserAdditionalDetails[];
 };
 
 export interface IBackendLoginApp {
-    getUserModel(): IUserModel;
+    getUserModel(): mongoose.Model<IUserDefault>;
 }

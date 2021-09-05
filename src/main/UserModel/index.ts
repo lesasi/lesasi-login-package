@@ -11,11 +11,11 @@ export class UserModel implements IUserModel{
 
     constructor(
         authString: string, 
-        mongooseObj: any,
+        mongooseConnection: mongoose.Connection,
         additionalAttributes?: IUserAdditionalDetails[],
     ) {
-        const userSchema = this.generateUserSchema(authString, additionalAttributes);
-        this.User = mongooseObj.model('User', userSchema);
+        const userSchema = this.generateUserSchema(authString, additionalAttributes || []);
+        this.User = mongooseConnection.model('User', userSchema);
     }
 
     get() {

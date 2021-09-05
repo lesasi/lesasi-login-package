@@ -10,12 +10,13 @@ export class BackendLoginApp implements IBackendLoginApp {
     constructor(data: IBackendLoginAppInput) {
         this.userModel = new UserModel(
             data.authString, 
-            data.mongooseObj,
-            data.userAdditionalDetails || []);
+            data.mongooseConnection,
+            data.userAdditionalDetails
+        );
         this.firebaseObj = data.firebaseArgs;
     }
 
     getUserModel() {
-        return this.userModel;
+        return this.userModel.get();
     }
 }
