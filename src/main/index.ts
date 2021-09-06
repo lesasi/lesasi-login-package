@@ -3,12 +3,14 @@ import { IBackendLoginApp, IBackendLoginAppInput } from '../interfaces/IBackendL
 import { IUserModel } from '../interfaces/IUserModel.interface';
 import { IMiddleware } from '../interfaces/IMiddleware.interface';
 import { Middleware } from './Middleware';
+import { Firebase } from './Firebase';
+import { IFirebase } from '../interfaces/IFirebase.interface';
 
 export class BackendLoginApp implements IBackendLoginApp {
     protected userModel: IUserModel;
     protected middleware: IMiddleware;
+    protected firebaseObj: IFirebase;
     protected userRouter;
-    protected firebaseObj;
 
     constructor(data: IBackendLoginAppInput) {
         this.userModel = new UserModel(
@@ -17,7 +19,7 @@ export class BackendLoginApp implements IBackendLoginApp {
             data.userAdditionalDetails
         );
         this.middleware = new Middleware(this.userModel, data.authString, data.authCookieName);
-        this.firebaseObj = data.firebaseArgs;
+        this.firebaseObj = new Firebase(data.firebaseArgs);
     }
 
     getUserModel() {
@@ -26,6 +28,10 @@ export class BackendLoginApp implements IBackendLoginApp {
 
     getAuthMiddleware() {
         return this.middleware.auth;
+    }
+
+    getFirebaseAuth() {
+        return this.firebaseObj.getAuth();
     }
     
 }

@@ -1,9 +1,9 @@
 export interface IFirebaseArgs {
-    app_name: string;
-    project_id: string;
-    protected_key_id: string;
-    protected_key: string;
-    client_email: string;
-    client_id: string;
-    client_x509_cert_url: string;
+    appName: string
+    projectId: string
+    privateKeyId: string
+    privateKey: string
+    clientEmail: string
+    clientId: string
+    clientX509CertUrl: string
 }
