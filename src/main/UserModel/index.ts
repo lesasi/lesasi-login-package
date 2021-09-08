@@ -8,13 +8,17 @@ import { IUserAdditionalDetails } from '../../interfaces/IUserAdditionalDetails.
 
 export class UserModel implements IUserModel{
     protected User: mongoose.Model<IUserDefault>;
+    protected additionalAttributes: IUserAdditionalDetails[];
+    protected authString: string;
 
     constructor(
         authString: string, 
         mongooseConnection: mongoose.Connection,
         additionalAttributes?: IUserAdditionalDetails[],
     ) {
-        const userSchema = this.generateUserSchema(authString, additionalAttributes || []);
+        this.additionalAttributes = additionalAttributes || [];
+        this.authString = authString;
+        const userSchema = this.generateUserSchema();
         this.User = mongooseConnection.model('User', userSchema);
     }
 
@@ -22,12 +26,13 @@ export class UserModel implements IUserModel{
         return this.User;
     }
 
-    protected generateUserSchema(
-        authString: string,
-        additionalAttributes?: IUserAdditionalDetails[],
-    ): mongoose.Schema<IUserDefault> {
+    getAdditionalAttributes() {
+        return this.additionalAttributes;
+    }
+
+    protected generateUserSchema(): mongoose.Schema<IUserDefault> {
         const addnDataObj = {};
-        additionalAttributes.map(attr => {
+        this.additionalAttributes.map(attr => {
             addnDataObj[_.get(attr, 'name')] = _.omit(attr, 'name');
         });
         
@@ -51,7 +56,7 @@ export class UserModel implements IUserModel{
         // member functions
         userSchema.methods.generateAuthToken = async function() {
             try {
-                const tokenString = jwt.sign({ _id: this._id.toString() }, authString);
+                const tokenString = jwt.sign({ _id: this._id.toString() }, this.authString);
                 this.tokens = [...this.tokens, { token_string: tokenString }];
                 await this.save();
                 return tokenString;
