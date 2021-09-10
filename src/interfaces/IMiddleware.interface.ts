@@ -1,5 +1,5 @@
-import express from 'express';
+import { IAuth } from './IDefinedTypes.interface';
 
 export interface IMiddleware {
-    auth(req: any, res: express.Response, next: express.NextFunction): Promise<void>
+    auth: IAuth
 };

@@ -1,8 +1,7 @@
-import mongoose from 'mongoose';
+import { IUser } from './IDefinedTypes.interface';
 import { IUserAdditionalDetails } from './IUserAdditionalDetails.interface';
-import { IUserDefault } from './IUserDefault.interface';
 
 export interface IUserModel {
-    get(): mongoose.Model<IUserDefault>;
+    get(): IUser;
     getAdditionalAttributes(): IUserAdditionalDetails[];
 }

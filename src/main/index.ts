@@ -18,7 +18,7 @@ export class BackendLoginApp implements IBackendLoginApp {
             data.mongooseConnection,
             data.userAdditionalDetails
         );
-        this.middleware = new Middleware(this.userModel, data.authString, data.authCookieName);
+        this.middleware = new Middleware(this.userModel.get(), data.authString, data.authCookieName);
         this.firebaseObj = new Firebase(data.firebaseArgs);
     }
 

@@ -1,9 +1,10 @@
 import firebase from 'firebase-admin';
+import { IFirebaseAuth } from '../../interfaces/IDefinedTypes.interface';
 import { IFirebase } from '../../interfaces/IFirebase.interface';
 import { IFirebaseArgs } from "../../interfaces/IFirebaseArgs.interface";
 
-export class Firebase implements IFirebase{
-    protected firebaseAuth: firebase.auth.Auth;
+export class Firebase implements IFirebase {
+    protected firebaseAuth: IFirebaseAuth;
 
     constructor(firebaseArgs: IFirebaseArgs) {
         this.setFirebaseAuth(firebaseArgs);

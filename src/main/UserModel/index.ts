@@ -5,9 +5,10 @@ import _ from 'lodash';
 import { IUserDefault } from '../../interfaces/IUserDefault.interface';
 import { IUserModel } from '../../interfaces/IUserModel.interface';
 import { IUserAdditionalDetails } from '../../interfaces/IUserAdditionalDetails.interface';
+import { IUser } from '../../interfaces/IDefinedTypes.interface';
 
 export class UserModel implements IUserModel{
-    protected User: mongoose.Model<IUserDefault>;
+    protected User: IUser;
     protected additionalAttributes: IUserAdditionalDetails[];
     protected authString: string;
 

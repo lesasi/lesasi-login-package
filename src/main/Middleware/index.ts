@@ -1,19 +1,17 @@
 import jwt from 'jsonwebtoken';
-import mongoose from 'mongoose';
 import express from 'express';
 
 import { IMiddleware } from "../../interfaces/IMiddleware.interface";
-import { IUserDefault } from '../../interfaces/IUserDefault.interface';
-import { IUserModel } from "../../interfaces/IUserModel.interface";
+import { IUser } from '../../interfaces/IDefinedTypes.interface';
 
 export class Middleware implements IMiddleware{
-    protected User: mongoose.Model<IUserDefault>;
+    protected User: IUser;
     protected authString: string;
     protected authCookieName: string;
 
 
-    constructor(UserObj: IUserModel, authString: string, authCookieName?: string) {
-        this.User = UserObj.get();
+    constructor(UserObj: IUser, authString: string, authCookieName?: string) {
+        this.User = UserObj;
         this.authString = authString;
         this.authCookieName = authCookieName || 'AUTH_TOKEN';
     }
