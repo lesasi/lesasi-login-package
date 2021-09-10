@@ -1,5 +1,3 @@
-const key_list = ['email', 'name', 'age']
-
 const handleEdgeCases = (message, key="") => {
     if(message.includes('Cast to Number')) {
         return `${key} must be a number!`;
@@ -21,25 +19,24 @@ export class GenerateErrorMessage {
         return GenerateErrorMessage;
     }
 
-    static generateErrMessage = (err_message) => {
+    static generateErrMessage = (errMessage) => {
         for(const key of GenerateErrorMessage.keyList) {
-            const lower_message = err_message.toLowerCase();
-            if(lower_message.includes(key)) {
-                if(err_message.includes('Custom')) {
-                    const message = err_message.replace('Custom:', '');
+            if(errMessage.toLowerCase().includes(key)) {
+                if(errMessage.includes('Custom')) {
+                    const message = errMessage.replace('Custom:', '');
                     return message;
                 } 
-                if(err_message.includes('User validation failed')) {
-                    const err_list = err_message.replace('User validation failed:', '').split(',');
-                    const err_obj = err_list.map(err => {
+                if(errMessage.includes('User validation failed')) {
+                    const errList = errMessage.replace('User validation failed:', '').split(',');
+                    const errObj = errList.map(err => {
                         const splt = err.split(': ');
                         return handleEdgeCases(splt[1], key);
                     });
-                    return err_obj[0];
+                    return errObj[0];
                 }
-                return handleEdgeCases(err_message, key);
+                return handleEdgeCases(errMessage, key);
             }
         }
-        return handleEdgeCases(err_message);
+        return handleEdgeCases(errMessage);
     };
 };
