@@ -1,4 +1,3 @@
-import { IAllowedDetailTypes } from "./IUserAdditionalDetails.interface";
 
 export interface IAttributeRequired {
     required: boolean;

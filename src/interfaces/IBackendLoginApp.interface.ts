@@ -1,6 +1,6 @@
 import { IFirebaseArgs } from './IFirebaseArgs.interface';
-import { IUserAdditionalDetails } from './IUserAdditionalDetails.interface';
-import { IAuth, IFirebaseAuth, IMongooseConnection, IUser } from './IDefinedTypes.interface';
+import { IAuth, IFirebaseAuth } from './IDefinedTypes.interface';
+import { IMongooseConnection, IUserAdditionalDetails, IUserModel } from './IUserDefault.interface';
 
 export interface IBackendLoginAppInput {
     authString: string;
@@ -11,7 +11,7 @@ export interface IBackendLoginAppInput {
 };
 
 export interface IBackendLoginApp {
-    getUserModel(): IUser;
+    getUserModel(): IUserModel;
     getAuthMiddleware(): IAuth;
     getFirebaseAuth(): IFirebaseAuth;
 }

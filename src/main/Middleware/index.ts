@@ -2,15 +2,15 @@ import jwt from 'jsonwebtoken';
 import express from 'express';
 
 import { IMiddleware } from "../../interfaces/IMiddleware.interface";
-import { IUser } from '../../interfaces/IDefinedTypes.interface';
+import { IUserModel } from '../../interfaces/IUserDefault.interface';
 
-export class Middleware implements IMiddleware{
-    protected User: IUser;
+export class Middleware implements IMiddleware {
+    protected User: IUserModel;
     protected authString: string;
     protected authCookieName: string;
 
 
-    constructor(UserObj: IUser, authString: string, authCookieName?: string) {
+    constructor(UserObj: IUserModel, authString: string, authCookieName?: string) {
         this.User = UserObj;
         this.authString = authString;
         this.authCookieName = authCookieName || 'AUTH_TOKEN';

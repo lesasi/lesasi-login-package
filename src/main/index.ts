@@ -1,19 +1,19 @@
-import { UserModel } from './UserModel';
+import { User } from './User';
 import { IBackendLoginApp, IBackendLoginAppInput } from '../interfaces/IBackendLoginApp.interface';
-import { IUserModel } from '../interfaces/IUserModel.interface';
 import { IMiddleware } from '../interfaces/IMiddleware.interface';
 import { Middleware } from './Middleware';
 import { Firebase } from './Firebase';
 import { IFirebase } from '../interfaces/IFirebase.interface';
+import { IUser } from '../interfaces/IUser.interface';
 
 export class BackendLoginApp implements IBackendLoginApp {
-    protected userModel: IUserModel;
+    protected userModel: IUser;
     protected middleware: IMiddleware;
     protected firebaseObj: IFirebase;
     protected userRouter;
 
     constructor(data: IBackendLoginAppInput) {
-        this.userModel = new UserModel(
+        this.userModel = new User(
             data.authString, 
             data.mongooseConnection,
             data.userAdditionalDetails

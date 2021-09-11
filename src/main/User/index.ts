@@ -2,15 +2,12 @@ import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import _ from 'lodash';
 
-import { IUserDefault } from '../../interfaces/IUserDefault.interface';
-import { IUserModel } from '../../interfaces/IUserModel.interface';
-import { IUserAdditionalDetails } from '../../interfaces/IUserAdditionalDetails.interface';
-import { IUser } from '../../interfaces/IDefinedTypes.interface';
+import { IUserAdditionalDetails, IUserDefault, IUserModel, IUserSchema } from '../../interfaces/IUserDefault.interface';
+import { IUser } from '../../interfaces/IUser.interface';
 
-export class UserModel implements IUserModel{
-    protected User: IUser;
+export class User implements IUser {
+    protected UserModel: IUserModel;
     protected additionalAttributes: IUserAdditionalDetails[];
-    protected authString: string;
 
     constructor(
         authString: string, 
@@ -18,20 +15,19 @@ export class UserModel implements IUserModel{
         additionalAttributes?: IUserAdditionalDetails[],
     ) {
         this.additionalAttributes = additionalAttributes || [];
-        this.authString = authString;
-        const userSchema = this.generateUserSchema();
-        this.User = mongooseConnection.model('User', userSchema);
+        const userSchema = this.generateUserSchema(authString);
+        this.UserModel = mongooseConnection.model<IUserSchema, IUserModel>('User', userSchema);
     }
 
     get() {
-        return this.User;
+        return this.UserModel;
     }
 
-    getAdditionalAttributes() {
-        return this.additionalAttributes;
+    getAdditionalAttributeNames() {
+        return this.additionalAttributes.map(attr => attr.name);
     }
 
-    protected generateUserSchema(): mongoose.Schema<IUserDefault> {
+    protected generateUserSchema(authString: string): mongoose.Schema<IUserSchema, IUserModel> {
         const addnDataObj = {};
         this.additionalAttributes.map(attr => {
             addnDataObj[_.get(attr, 'name')] = _.omit(attr, 'name');
@@ -40,14 +36,14 @@ export class UserModel implements IUserModel{
         const { userObj, options } = this.getDefaultUserObj();
 
         // generate user schema
-        const userSchema = new mongoose.Schema<IUserDefault>({
+        const userSchema = new mongoose.Schema<IUserSchema, IUserModel>({
             ...userObj,
             ...addnDataObj
         }, options);
 
         // static functions
         userSchema.statics.findUserByFirebaseId = async(firebaseId) => {
-            const user = await this.User.findOne({ firebaseId });
+            const user = await this.UserModel.findOne({ firebaseId });
             if(!user) {
                 throw new Error('User not found!');
             }
@@ -57,7 +53,7 @@ export class UserModel implements IUserModel{
         // member functions
         userSchema.methods.generateAuthToken = async function() {
             try {
-                const tokenString = jwt.sign({ _id: this._id.toString() }, this.authString);
+                const tokenString = jwt.sign({ _id: this._id.toString() }, authString);
                 this.tokens = [...this.tokens, { token_string: tokenString }];
                 await this.save();
                 return tokenString;
