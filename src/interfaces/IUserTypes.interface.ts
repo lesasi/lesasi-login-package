@@ -1,8 +1,7 @@
 import mongoose from 'mongoose';
-import { IAttributeType, IAttributeTypeAndRequired } from "./ITypes.interface";
 
 interface ITokenString {
-    token_string: IAttributeType;
+    token_string: string;
 }
 
 export type IAllowedDetailTypes = string | number | boolean;
@@ -18,19 +17,19 @@ export interface IUserAdditionalDetails {
     valdiate?(): any;
 }
 
-export interface IUserDefault {
-    email: IAttributeTypeAndRequired;
-    firebaseId: IAttributeTypeAndRequired;
+export interface IUserDefault extends mongoose.Document {
+    email: string;
+    firebaseId: string;
     tokens: ITokenString[];
 }
 
-export interface IUserSchema extends IUserDefault {
+export interface IUserInstance extends IUserDefault {
     generateAuthToken(): Promise<string>;
     toJSON();
 }
 
-export interface IUserModel extends mongoose.Model<IUserSchema> {
-    findUserByFirebaseId();
+export interface IUserModel extends mongoose.Model<IUserInstance> {
+    findUserByFirebaseId(firebaseId: string): IUserInstance;
 }
 
 export type IMongooseConnection = mongoose.Connection;

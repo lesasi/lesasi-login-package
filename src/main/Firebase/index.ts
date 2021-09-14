@@ -1,7 +1,6 @@
 import firebase from 'firebase-admin';
-import { IFirebaseAuth } from '../../interfaces/IDefinedTypes.interface';
 import { IFirebase } from '../../interfaces/IFirebase.interface';
-import { IFirebaseArgs } from "../../interfaces/IFirebaseArgs.interface";
+import { IFirebaseArgs, IFirebaseAuth } from "../../interfaces/IFirebaseTypes.interface";
 
 export class Firebase implements IFirebase {
     protected firebaseAuth: IFirebaseAuth;

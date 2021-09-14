@@ -1,8 +1,9 @@
 import jwt from 'jsonwebtoken';
-import express from 'express';
 
 import { IMiddleware } from "../../interfaces/IMiddleware.interface";
-import { IUserModel } from '../../interfaces/IUserDefault.interface';
+import { IUserModel } from '../../interfaces/IUserTypes.interface';
+import { IExpressNextFunction, IExpressRequest, IExpressResponse } from '../../interfaces/IRouterTypes';
+import { IUser } from '../../interfaces/IUser.interface';
 
 export class Middleware implements IMiddleware {
     protected User: IUserModel;
@@ -10,13 +11,13 @@ export class Middleware implements IMiddleware {
     protected authCookieName: string;
 
 
-    constructor(UserObj: IUserModel, authString: string, authCookieName?: string) {
-        this.User = UserObj;
+    constructor(UserObj: IUser, authString: string, authCookieName?: string) {
+        this.User = UserObj.get();
         this.authString = authString;
         this.authCookieName = authCookieName || 'AUTH_TOKEN';
     }
 
-    auth = async (req: any, res: express.Response, next: express.NextFunction) => {
+    auth = async (req: IExpressRequest, res: IExpressResponse, next: IExpressNextFunction) => {
         try {
             // get auth token off of request object
             const token = req.cookies[this.authCookieName];

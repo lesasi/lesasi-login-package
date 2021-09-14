@@ -1,4 +1,4 @@
-import { IExpressRouter } from "./IDefinedTypes.interface";
+import { IExpressRouter } from "./IRouterTypes";
 
 export interface IRouter {
     get(): IExpressRouter;

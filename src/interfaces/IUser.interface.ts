@@ -1,4 +1,4 @@
-import { IUserModel } from './IUserDefault.interface';
+import { IUserModel } from './IUserTypes.interface';
 
 export interface IUser {
     get(): IUserModel;

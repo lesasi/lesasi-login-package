@@ -1,4 +1,4 @@
-import { IAuth } from './IDefinedTypes.interface';
+import { IAuth } from "./IMiddlewareTypes.interface";
 
 export interface IMiddleware {
     auth: IAuth

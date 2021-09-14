@@ -15,7 +15,7 @@ export class GenerateErrorMessage {
     static keyList = [];
 
     static setAdditionalKeys(addnKeys) {
-        this.keyList = [...this.keyList, ...addnKeys];
+        GenerateErrorMessage.keyList = [...GenerateErrorMessage.keyList, ...addnKeys];
         return GenerateErrorMessage;
     }
 

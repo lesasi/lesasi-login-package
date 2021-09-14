@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import _ from 'lodash';
 
-import { IUserAdditionalDetails, IUserDefault, IUserModel, IUserSchema } from '../../interfaces/IUserDefault.interface';
+import { IUserAdditionalDetails, IUserDefault, IUserModel, IUserInstance } from '../../interfaces/IUserTypes.interface';
 import { IUser } from '../../interfaces/IUser.interface';
 
 export class User implements IUser {
@@ -16,7 +16,7 @@ export class User implements IUser {
     ) {
         this.additionalAttributes = additionalAttributes || [];
         const userSchema = this.generateUserSchema(authString);
-        this.UserModel = mongooseConnection.model<IUserSchema, IUserModel>('User', userSchema);
+        this.UserModel = mongooseConnection.model<IUserInstance, IUserModel>('User', userSchema);
     }
 
     get() {
@@ -27,7 +27,7 @@ export class User implements IUser {
         return this.additionalAttributes.map(attr => attr.name);
     }
 
-    protected generateUserSchema(authString: string): mongoose.Schema<IUserSchema, IUserModel> {
+    protected generateUserSchema(authString: string): mongoose.Schema<IUserInstance, IUserModel> {
         const addnDataObj = {};
         this.additionalAttributes.map(attr => {
             addnDataObj[_.get(attr, 'name')] = _.omit(attr, 'name');
@@ -36,14 +36,14 @@ export class User implements IUser {
         const { userObj, options } = this.getDefaultUserObj();
 
         // generate user schema
-        const userSchema = new mongoose.Schema<IUserSchema, IUserModel>({
+        const userSchema = new mongoose.Schema<IUserInstance, IUserModel>({
             ...userObj,
             ...addnDataObj
         }, options);
 
         // static functions
         userSchema.statics.findUserByFirebaseId = async(firebaseId) => {
-            const user = await this.UserModel.findOne({ firebaseId });
+            const user: IUserInstance = await this.UserModel.findOne({ firebaseId });
             if(!user) {
                 throw new Error('User not found!');
             }
@@ -75,7 +75,7 @@ export class User implements IUser {
     }
 
     protected getDefaultUserObj() {
-        const userObj: IUserDefault = {
+        const userObj = {
             email: {
                 type: String,
                 required: true,
