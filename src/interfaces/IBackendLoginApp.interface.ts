@@ -1,5 +1,6 @@
 import { IFirebaseArgs, IFirebaseAuth } from './IFirebaseTypes.interface';
 import { IAuth } from './IMiddlewareTypes.interface';
+import { IExpressRouter } from './IRouterTypes';
 import { IMongooseConnection, IUserAdditionalDetails, IUserModel } from './IUserTypes.interface';
 
 export interface IBackendLoginAppInput {
@@ -14,4 +15,5 @@ export interface IBackendLoginApp {
     getUserModel(): IUserModel;
     getAuthMiddleware(): IAuth;
     getFirebaseAuth(): IFirebaseAuth;
+    getRouter(): IExpressRouter;
 }
