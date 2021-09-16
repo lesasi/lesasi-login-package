@@ -1,7 +1,7 @@
 {
-  "name": "lesasi-login-package",
+  "name": "@lesasi/lesasi-login-package",
   "version": "1.0.0",
-  "description": "Authentication package for express and mongodb backend with User router, User model and firebase integration",
+  "description": "Authentication package for Express.js and MongoDB backend with User router, User model and firebase integration",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
