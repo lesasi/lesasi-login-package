@@ -23,7 +23,9 @@
     "express",
     "mongodb",
     "authentication",
-    "firebase"
+    "firebase",
+    "lesasi",
+    "lesasi-login-package"
   ],
   "author": "lesasi",
   "license": "ISC",
