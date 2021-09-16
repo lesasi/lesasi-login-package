@@ -131,6 +131,7 @@ export class Router implements IRouter {
             } 
         });
 
+        this.router = router;
     }
 
     get() {
