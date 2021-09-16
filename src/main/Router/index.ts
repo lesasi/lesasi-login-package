@@ -1,6 +1,5 @@
 import express from 'express';
 import { IFirebase } from '../../interfaces/IFirebase.interface';
-import { IFirebaseAuth } from '../../interfaces/IFirebaseTypes.interface';
 import { IMiddleware } from '../../interfaces/IMiddleware.interface';
 import { IRouter } from "../../interfaces/IRouter.interface";
 import { IExpressRequest, IExpressResponse, IExpressRouter } from '../../interfaces/IRouterTypes';

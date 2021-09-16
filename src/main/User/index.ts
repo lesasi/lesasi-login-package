@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import _ from 'lodash';
 
-import { IUserAdditionalDetails, IUserDefault, IUserModel, IUserInstance } from '../../interfaces/IUserTypes.interface';
+import { IUserAdditionalDetails, IUserModel, IUserInstance } from '../../interfaces/IUserTypes.interface';
 import { IUser } from '../../interfaces/IUser.interface';
 
 export class User implements IUser {
