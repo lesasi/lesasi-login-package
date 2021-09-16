@@ -3,7 +3,7 @@ import { IAuth } from './IMiddlewareTypes.interface';
 import { IExpressRouter } from './IRouterTypes';
 import { IMongooseConnection, IUserAdditionalDetails, IUserModel } from './IUserTypes.interface';
 
-export interface IBackendLoginAppInput {
+export interface IServerAppInput {
     authString: string;
     mongooseConnection: IMongooseConnection;
     authCookieName?: string,
@@ -11,7 +11,7 @@ export interface IBackendLoginAppInput {
     userAdditionalDetails?: IUserAdditionalDetails[];
 };
 
-export interface IBackendLoginApp {
+export interface IServerApp {
     getUserModel(): IUserModel;
     getAuthMiddleware(): IAuth;
     getFirebaseAuth(): IFirebaseAuth;

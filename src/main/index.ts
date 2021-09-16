@@ -1,4 +1,4 @@
-import { IBackendLoginApp, IBackendLoginAppInput } from '../interfaces/IBackendLoginApp.interface';
+import { IServerApp, IServerAppInput } from '../interfaces/IServerApp.interface';
 import { IUser } from '../interfaces/IUser.interface';
 import { User } from './User';
 import { IMiddleware } from '../interfaces/IMiddleware.interface';
@@ -8,13 +8,13 @@ import { Firebase } from './Firebase';
 import { IRouter } from '../interfaces/IRouter.interface';
 import { Router } from './Router';
 
-export class BackendLoginApp implements IBackendLoginApp {
+export class ServerApp implements IServerApp {
     protected userModel: IUser;
     protected middleware: IMiddleware;
     protected firebaseObj: IFirebase;
     protected userRouter: IRouter;
 
-    constructor(data: IBackendLoginAppInput) {
+    constructor(data: IServerAppInput) {
         this.userModel = new User(
             data.authString, 
             data.mongooseConnection,
