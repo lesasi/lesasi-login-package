@@ -1,5 +1,5 @@
-import { IExpressRouter } from "./IRouterTypes";
+import { IExpressRouter } from './IRouterTypes';
 
 export interface IRouter {
     get(): IExpressRouter;
-};
+}
