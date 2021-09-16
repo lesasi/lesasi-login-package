@@ -6,10 +6,10 @@ import { IMongooseConnection, IUserAdditionalDetails, IUserModel } from './IUser
 export interface IServerAppInput {
     authString: string;
     mongooseConnection: IMongooseConnection;
-    authCookieName?: string,
+    authCookieName?: string;
     firebaseArgs?: IFirebaseArgs;
     userAdditionalDetails?: IUserAdditionalDetails[];
-};
+}
 
 export interface IServerApp {
     getUserModel(): IUserModel;

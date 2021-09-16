@@ -15,11 +15,7 @@ export class ServerApp implements IServerApp {
     protected userRouter: IRouter;
 
     constructor(data: IServerAppInput) {
-        this.userModel = new User(
-            data.authString, 
-            data.mongooseConnection,
-            data.userAdditionalDetails
-        );
+        this.userModel = new User(data.authString, data.mongooseConnection, data.userAdditionalDetails);
         this.middleware = new Middleware(this.userModel, data.authString, data.authCookieName);
         this.firebaseObj = new Firebase(data.firebaseArgs);
         this.userRouter = new Router(this.userModel, this.middleware, this.firebaseObj, data.authCookieName);
@@ -40,5 +36,4 @@ export class ServerApp implements IServerApp {
     getRouter() {
         return this.userRouter.get();
     }
-    
 }

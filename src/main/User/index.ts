@@ -10,7 +10,7 @@ export class User implements IUser {
     protected additionalAttributes: IUserAdditionalDetails[];
 
     constructor(
-        authString: string, 
+        authString: string,
         mongooseConnection: mongoose.Connection,
         additionalAttributes?: IUserAdditionalDetails[],
     ) {
@@ -24,44 +24,47 @@ export class User implements IUser {
     }
 
     getAdditionalAttributeNames() {
-        return this.additionalAttributes.map(attr => attr.name);
+        return this.additionalAttributes.map((attr) => attr.name);
     }
 
     protected generateUserSchema(authString: string): mongoose.Schema<IUserInstance, IUserModel> {
         const addnDataObj = {};
-        this.additionalAttributes.map(attr => {
+        this.additionalAttributes.map((attr) => {
             addnDataObj[_.get(attr, 'name')] = _.omit(attr, 'name');
         });
-        
+
         const { userObj, options } = this.getDefaultUserObj();
 
         // generate user schema
-        const userSchema = new mongoose.Schema<IUserInstance, IUserModel>({
-            ...userObj,
-            ...addnDataObj
-        }, options);
+        const userSchema = new mongoose.Schema<IUserInstance, IUserModel>(
+            {
+                ...userObj,
+                ...addnDataObj,
+            },
+            options,
+        );
 
         // static functions
-        userSchema.statics.findUserByFirebaseId = async(firebaseId) => {
+        userSchema.statics.findUserByFirebaseId = async (firebaseId) => {
             const user: IUserInstance = await this.UserModel.findOne({ firebaseId });
-            if(!user) {
+            if (!user) {
                 throw new Error('User not found!');
             }
             return user;
-        }
-        
+        };
+
         // member functions
-        userSchema.methods.generateAuthToken = async function() {
+        userSchema.methods.generateAuthToken = async function () {
             try {
                 const tokenString = jwt.sign({ _id: this._id.toString() }, authString);
                 this.tokens = [...this.tokens, { token_string: tokenString }];
                 await this.save();
                 return tokenString;
-            } catch(error){
+            } catch (error) {
                 throw new Error(error.message);
             }
-        }
-        
+        };
+
         userSchema.methods.toJSON = function () {
             const user = this.toObject();
             // remove tokens attribute
@@ -69,7 +72,7 @@ export class User implements IUser {
             delete user.firebaseId;
             // return user object
             return user;
-        }
+        };
 
         return userSchema;
     }
@@ -82,19 +85,21 @@ export class User implements IUser {
             },
             firebaseId: {
                 type: String,
-                required: true
+                required: true,
             },
-            tokens: [{
-                token_string: {
-                    type:String
-                }
-            }]
+            tokens: [
+                {
+                    token_string: {
+                        type: String,
+                    },
+                },
+            ],
         };
 
         const options = {
-            timestamps: true
+            timestamps: true,
         };
 
         return { userObj, options };
     }
-};
+}

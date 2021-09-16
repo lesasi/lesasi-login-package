@@ -1,5 +1,5 @@
-import { IAuth } from "./IMiddlewareTypes.interface";
+import { IAuth } from './IMiddlewareTypes.interface';
 
 export interface IMiddleware {
-    auth: IAuth
-};
+    auth: IAuth;
+}

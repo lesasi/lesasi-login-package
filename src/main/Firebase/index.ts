@@ -1,6 +1,6 @@
 import firebase from 'firebase-admin';
 import { IFirebase } from '../../interfaces/IFirebase.interface';
-import { IFirebaseArgs, IFirebaseAuth } from "../../interfaces/IFirebaseTypes.interface";
+import { IFirebaseArgs, IFirebaseAuth } from '../../interfaces/IFirebaseTypes.interface';
 
 export class Firebase implements IFirebase {
     protected firebaseAuth: IFirebaseAuth;
@@ -10,17 +10,9 @@ export class Firebase implements IFirebase {
     }
 
     setFirebaseAuth(firebaseArgs: IFirebaseArgs): void {
-        const {
-            appName,
-            projectId,
-            privateKeyId,
-            privateKey,
-            clientEmail,
-            clientId,
-            clientX509CertUrl,
-        } = firebaseArgs;
+        const { appName, projectId, privateKeyId, privateKey, clientEmail, clientId, clientX509CertUrl } = firebaseArgs;
 
-        const credentials  = {
+        const credentials = {
             type: 'service_account',
             projectId,
             privateKeyId,
@@ -30,7 +22,7 @@ export class Firebase implements IFirebase {
             authUri: 'https://accounts.google.com/o/oauth2/auth',
             tokenUri: 'https://oauth2.googleapis.com/token',
             authProviderX509CertUrl: 'https://www.googleapis.com/oauth2/v1/certs',
-            clientX509CertUrl
+            clientX509CertUrl,
         };
 
         firebase.initializeApp({
@@ -44,4 +36,4 @@ export class Firebase implements IFirebase {
     getAuth() {
         return this.firebaseAuth;
     }
-};
+}
